@@ -12,7 +12,7 @@
 </p>
 
 <p align="center">
-  <img alt="Python 3.10+" src="https://img.shields.io/badge/python-3.10%2B-3776AB?logo=python&logoColor=white">
+  <img alt="Python 3.11-3.13" src="https://img.shields.io/badge/python-3.11--3.13-3776AB?logo=python&logoColor=white">
   <img alt="PyTorch 2" src="https://img.shields.io/badge/PyTorch-2.x-EE4C2C?logo=pytorch&logoColor=white">
   <img alt="Tests" src="https://img.shields.io/badge/tests-307%20passing-2EA44F">
   <img alt="Monitors" src="https://img.shields.io/badge/run%20monitors-34-7B3FE4">

@@ -7,9 +7,9 @@ name = "amini"
 version = "0.1.0"
 description = "The AminiFormer policy and the PPO building blocks of a Clash Royale AI."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11,<3.14"
 dependencies = [
-    "numpy>=1.24",
+    "numpy>=1.24,<2",
     "torch>=2.1",
 ]
 
