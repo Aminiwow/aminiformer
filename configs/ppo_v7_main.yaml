@@ -1,0 +1,346 @@
+# Example PPO run file: every field of amini.ppo.config.PPOConfig with its default (example values).
+
+name: ppo_v7_main
+
+user:
+  deck: null
+  tower_troop: null
+  kl_reference_after_promotion: champion
+  h1_reading: crn_then_seatswap
+  bc_enabled: false
+  opponent_design: selfplay_il30
+  d6_subset_alarm_only: true
+
+rollout:
+  games_per_update: 1000
+  replicas_per_group: 1
+  temperature: 1.0
+  gate_temperature: 1.0
+  hazard_dt: null
+  max_env_slots: 8
+  env_path: engine
+  emu_spot_check_games: 10
+  landing_delay:
+    play_pmf:
+      0: 1.0
+      1: 2.0
+      2: 1.0
+    ability_pmf:
+      1: 1.0
+      2: 1.0
+    uniform_mix: 0.0
+    uniform_max: 2
+    uniform_kinds: [play]
+  min_tap_tick: 100
+  skip_forced_uncommitted: false
+  remote:
+    enabled: false
+    root: null
+    lease_s: 3600
+    max_actors: 4
+  stamp_rule:
+    enabled: true
+    blocked_mod10: [5]
+    push_to_mod10: 6
+  arrival:
+    model: batched
+    period: 5
+    j_pmf:
+      1: 0.375
+      2: 0.625
+    source: example
+    source_sha256: null
+  client_mask: true
+  client_rules_seats: [train, opponent, gate]
+
+policy:
+  clip_eps: 0.25
+  dual_clip: 2.5
+  lr: 5.0e-5  # constant learning rate (example value)
+  lr_schedule: constant
+  betas: [0.9, 0.999]
+  adam_eps: 1.0e-8
+  weight_decay: 0.0
+  grad_clip: 1.0
+  grad_clip_raised: 2.0
+  grad_clip_raise_after_updates: 10
+  grad_clip_raise_clipped_frac: 0.8
+  minibatch_seat_games: 50
+  epochs: 3
+  dropout: 0.0
+  train_scope: full
+  aux_heads: false
+  advantage_norm: per_update
+  is_ratio_cap_lag1: 1.5
+  gae_trace_cap_lag1: 1.0
+  rollout_lag: 0
+  backbone_dtype: fp32
+  micro_rows: 256
+  max_micro_tokens: 65536
+
+kl:
+  beta: 0.02
+  beta_min: 0.005
+  beta_max: 0.1
+  normalisation: surrogate_denominator
+
+early_stop:
+  joint_k3: 0.02
+  play_k3: 0.1
+  gate_kl: 0.01
+  lr_halve_if_stopped_frac: 0.75
+  lr_halve_window: 8
+
+entropy:
+  coef:
+    gate: 0.0
+    slot: 0.0
+    cells: 0.0
+    ability: 0.0
+  cell_bonus: 0.005
+  cell_trigger_frac_of_il: 0.25
+
+gae:
+  gamma: 0.9999
+  lambda_tick: 0.995
+  lambda_tick_f1: 0.997
+
+critic:
+  loss: mse
+  lr: 0.0003
+  betas: [0.9, 0.999]
+  adam_eps: 1.0e-8
+  grad_clip: 2.0
+  epochs: 3
+  value_priv: false
+  warmup:
+    games_per_batch: 256
+    max_updates: 20
+    fixed_set_games: 1000
+    stop_trend_updates: 4
+    pass_ev_overall: 0.1
+    pass_ev_last_third: 0.2
+
+reward:
+  win: 1.0
+  loss: -1.0
+  draw: 0.0
+  shaping: none
+  short_head_coef: 0.2
+  short_head_gamma: 0.99
+  short_head_decision_ticks: 20
+
+bc:
+  weight: 0.0
+  start_weight: 0.1
+  min_rows_per_update: 10000
+
+weights:
+  seat_ours: 1.0
+  seat_theta_opp: 0.25
+  seat_mirror: 1.0
+  ht_action: 1.0
+  ht_wait:
+    base: 5.0
+    threat: 2.0
+  forced: 0.0
+
+opponents:
+  pilot_updates: 10
+  pilot:
+    self_seat: 0.4
+    mirror: 0.1
+    il_v4_t1: 0.3
+    il_v4_tstar: 0.2
+    il_v3_t1: 0.0
+    snapshot: 0.0
+  main:
+    self_seat: 0.4
+    mirror: 0.1
+    il_v4_t1: 0.15
+    il_v4_tstar: 0.1
+    il_v3_t1: 0.0
+    snapshot: 0.25
+  il_floor: 0.25
+  snapshot_every: 5
+  snapshot_pool_recent: 4
+  temperature:
+    il_v4_t1: 1.0
+    il_v4_tstar: null
+    il_v3_t1: 1.0
+    snapshot: 1.0
+    il_v2_heldout: 1.0
+  checkpoint:
+    il_v4: null
+    il_v3: null
+    il_v2_heldout: null
+  checkpoint_sha256:
+    il_v4: null
+    il_v3: null
+    il_v2_heldout: null
+  gate_bias:
+    il_v4:
+      base: [0.0, 0.0, 0.0]
+      threat: [0.0, 0.0, 0.0]
+    il_v3:
+      base: [0.0, 0.0, 0.0]
+      threat: [0.0, 0.0, 0.0]
+    il_v2_heldout:
+      base: [0.0, 0.0, 0.0]
+      threat: [0.0, 0.0, 0.0]
+  hazard_dt:
+    il_v3: null
+    il_v2_heldout: null
+  code_tree:
+    il_v3: null
+    il_v2_heldout: null
+
+sim2real:
+  enabled: true
+  landing_delay:
+    play: [1, 4]
+    ability: [1, 3]
+  delta_lag:
+    default_ticks: 0
+    overrides: {}
+  delta_arr_table: data/opp_cmd_arrival_v7.json
+  threat_from_filtered_state: true
+
+levels:
+  mix:
+    16: 0.8
+    11: 0.2
+  population:
+    16: ranked
+    11: null  # NULL / tournament / challenge_eventdeck; the population "NULL" (quoted)
+
+gates:
+  screen:
+    at_update_in_cycle: 5
+    games: 256
+  g1:
+    every_updates: 10
+    games_per_side: 500
+    alpha_one_sided: 0.1
+    heldout_min_delta_pp: -2.0
+  g1c:
+    pairs: 500
+  g2:
+    pairs: 250
+    record_only: true
+  release:
+    pairs: 500
+    mirror_games: 200
+    transitivity_pairs: 100
+    live_games_min: 10
+  crn_panel:
+    il_v2_heldout: 0.4
+    il_v4_tstar: 0.3
+    il_v4_t1: 0.3
+  min_completion: 0.95
+  bootstrap_resamples: 5000
+  aa_null_pairs: 500
+  il_temperature_sweep: [1.0, 0.5, 0.0]
+  deploy_temperature_sweep: [1.0, 0.7, 0.3, 0.0]
+  sweep_games: 500
+  sprt: false
+  sprt_h1_pp: 3.0
+  canaries: [all_wait, random_legal]
+  canary_games: 32
+  canary_alarm_lb: 0.2
+  panel_level: 16
+  g2_mode: pooled_since_restart
+  pilot_min_delta_pp: -5.0
+  pilot_joint_kl_median_max: 0.02
+  p6_entry_g2_min_score: 0.6
+  restart_swap_min_score: 0.6
+  rollback_delta_pp: -5.0
+  rollback_consecutive: 3
+  rollback_lr_mult: 0.6
+  rollback_beta_double_window: 40
+  rollback_beta_mult: 3.0
+  stall_g1_without_promotion: 5
+  stall_step_min_updates: 10
+  stall_games_per_update: 2000
+  stall_stop_g1: 8
+  release_after_g1_without_new: 5
+
+monitor:
+  parity:
+    max_abs_dlogp_fp32: 0.001
+    dlogp_tol_bf16:
+      wait: null
+      play: null
+      ability: null
+    ratio_tol: 0.001
+    kl_theta0_ref_max: 1.0e-5
+    replay_games: 4
+    games: 10
+  clip_frac_max: 0.4
+  clip_frac_consecutive: 4
+  temp_lr_mult: 0.6
+  temp_lr_floor: 0.4
+  kl_stall_window: 8
+  kl_stall_band: 0.2
+  kl_stall_g1_without_promotion: 4
+  kl_stall_beta_mult: 0.6
+  lr_stall_mult: 2.0
+  kl_step_skip_growth: 1.5
+  kl_step_skip_g1_move_pp: 1.0
+  kl_grad_ratio_min: 1.0e-12
+  tiny_log_ratio: -10.0
+  tiny_ratio_share_max: null
+  gate_trend_window: 8
+  gate_trend_act_rel_max: null
+  gate_trend_adv_gap_max: null
+  entropy_max_frac_of_ref: null
+  flip_rate_max: null
+  probe_rows: 512
+  plays_per_min_band: [0.8, 1.25]
+  entropy_min_frac_of_il: 0.4
+  card_rate_band: [0.25, 4.0]
+  core_cards: [example-card]
+  core_card_min_frac_of_il: 0.2
+  core_card_consecutive: 4
+  core_rollbacks_before_stop: 2
+  pilot_core_card_min_frac: 0.25
+  illegal_cell_code: 19
+  legal_refused_max_ratio_vs_il: 3.0
+  forced_frac_alarm_abs: 0.2
+  mask_recheck_every: 10
+  drop_rate_warn: 0.01
+  drop_rate_stop: 0.05
+  opp_nonwait_min_frac: 0.4
+  value_ev_overall_min: 0.1
+  value_ev_last_third_min: 0.2
+  value_ev_consecutive: 4
+  value_ev_drop_from_warmup: 0.2
+  drift_every: 10
+  throughput_min_frac: 0.5
+  min_free_mem_gb: 4.0
+  swap_growth_gb: 1.0
+  swap_window_s: 3600.0
+  swap_slot_reduction: 4
+  nan_skip_consecutive_stop: 5
+
+drift:
+  subset_games: 1000
+  exclude_friendly: true
+  nll_increase_max:
+    gate: 0.1
+    slot: 0.2
+    cell: 0.2
+    ability: 0.2
+  gate_auc_drop_max: 0.03
+  calibration_ratio_band: [0.8, 1.25]
+
+chain:
+  block_timeout_s: 14400
+  kill_after_s: 600
+
+storage:
+  rows: committed_tokens
+  keep_updates: 2
+
+cases:
+  exclude_population: [friendly]

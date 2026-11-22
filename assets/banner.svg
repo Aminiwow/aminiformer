@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 420" width="1280" height="420" role="img" aria-label="AminiFormer: a transformer policy trained with imitation learning and self-play PPO">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a0f24"/>
+      <stop offset="0.55" stop-color="#16224f"/>
+      <stop offset="1" stop-color="#2b1a5a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.76" cy="0.5" r="0.55">
+      <stop offset="0" stop-color="#4f7cff" stop-opacity="0.32"/>
+      <stop offset="1" stop-color="#4f7cff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="arc" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5ee7ff"/>
+      <stop offset="1" stop-color="#b38cff"/>
+    </linearGradient>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5ee7ff"/>
+      <stop offset="1" stop-color="#9b6bff"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1280" height="420" rx="28" fill="url(#bg)"/>
+  <rect width="1280" height="420" rx="28" fill="url(#glow)"/>
+
+  <!-- abstract policy: tokens of one step, attention arcs, a time axis of steps, three action heads -->
+  <g transform="translate(760 64)">
+    <g fill="none" stroke="url(#arc)" stroke-width="2.2" stroke-linecap="round" opacity="0.85">
+      <path d="M40 150 C 90 70, 170 70, 220 150"/>
+      <path d="M40 150 C 120 40, 300 40, 380 150"/>
+      <path d="M130 150 C 160 100, 270 100, 300 150"/>
+      <path d="M220 150 C 250 115, 350 115, 380 150"/>
+      <path d="M300 150 C 330 125, 420 125, 450 150" opacity="0.6"/>
+    </g>
+    <g>
+      <rect x="22" y="150" width="36" height="36" rx="8" fill="#5ee7ff"/>
+      <rect x="112" y="150" width="36" height="36" rx="8" fill="#7fb2ff"/>
+      <rect x="202" y="150" width="36" height="36" rx="8" fill="#9b8cff"/>
+      <rect x="282" y="150" width="36" height="36" rx="8" fill="#b38cff"/>
+      <rect x="362" y="150" width="36" height="36" rx="8" fill="#8a7dff"/>
+      <rect x="432" y="150" width="36" height="36" rx="8" fill="#ffffff" fill-opacity="0.18" stroke="#ffffff" stroke-opacity="0.35"/>
+    </g>
+    <!-- time axis -->
+    <line x1="20" y1="222" x2="470" y2="222" stroke="#ffffff" stroke-opacity="0.35" stroke-width="2"/>
+    <g fill="#ffffff" fill-opacity="0.55">
+      <circle cx="40" cy="222" r="4"/><circle cx="130" cy="222" r="4"/><circle cx="220" cy="222" r="4"/>
+      <circle cx="300" cy="222" r="4"/><circle cx="380" cy="222" r="5.5" fill="#5ee7ff" fill-opacity="1"/>
+    </g>
+    <text x="20" y="250" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" fill="#c9d4ff" fill-opacity="0.8">past steps</text>
+    <text x="470" y="250" text-anchor="end" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="15" fill="#c9d4ff" fill-opacity="0.8">now</text>
+    <!-- heads -->
+    <g font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="16" fill="#ffffff">
+      <rect x="190" y="270" width="86" height="34" rx="17" fill="#5ee7ff" fill-opacity="0.18" stroke="#5ee7ff" stroke-opacity="0.7"/>
+      <text x="233" y="292" text-anchor="middle">when</text>
+      <rect x="286" y="270" width="86" height="34" rx="17" fill="#9b8cff" fill-opacity="0.18" stroke="#9b8cff" stroke-opacity="0.7"/>
+      <text x="329" y="292" text-anchor="middle">which</text>
+      <rect x="382" y="270" width="86" height="34" rx="17" fill="#b38cff" fill-opacity="0.18" stroke="#b38cff" stroke-opacity="0.7"/>
+      <text x="425" y="292" text-anchor="middle">where</text>
+    </g>
+    <path d="M380 192 C 380 235, 245 240, 233 268" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1.6"/>
+    <path d="M380 192 C 378 230, 335 240, 329 268" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1.6"/>
+    <path d="M380 192 C 382 232, 420 240, 425 268" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="1.6"/>
+  </g>
+
+  <!-- mark: three stacked bars (layers) -->
+  <g transform="translate(76 104)">
+    <rect x="0" y="0" width="68" height="16" rx="8" fill="url(#mark)"/>
+    <rect x="0" y="26" width="68" height="16" rx="8" fill="url(#mark)" opacity="0.75"/>
+    <rect x="0" y="52" width="68" height="16" rx="8" fill="url(#mark)" opacity="0.5"/>
+  </g>
+
+  <text x="166" y="166" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="74" font-weight="700" fill="#ffffff" letter-spacing="-1">AminiFormer</text>
+  <text x="76" y="232" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26" fill="#d6defd">A transformer policy for real-time card battles,</text>
+  <text x="76" y="268" font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="26" fill="#d6defd">trained from human replays and self-play.</text>
+
+  <g font-family="Segoe UI, Helvetica Neue, Helvetica, Arial, sans-serif" font-size="18" fill="#ffffff">
+    <rect x="76" y="304" width="196" height="38" rx="19" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.25"/>
+    <text x="174" y="329" text-anchor="middle">Imitation learning</text>
+    <rect x="284" y="304" width="170" height="38" rx="19" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.25"/>
+    <text x="369" y="329" text-anchor="middle">Self-play PPO</text>
+    <rect x="466" y="304" width="196" height="38" rx="19" fill="#ffffff" fill-opacity="0.1" stroke="#ffffff" stroke-opacity="0.25"/>
+    <text x="564" y="329" text-anchor="middle">Runs unattended</text>
+  </g>
+</svg>

@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+build/
+dist/
+
+# Local outputs: datasets, checkpoints, logs
+runs/
+data/
+*.pt
+*.npz
+*.log
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
